@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VUEJS-EX04</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="intro">
+        <h2>Product: {{productName}}</h2>
+        <h2 v-if="productPrice < 1000">Price: {{productPrice}}</h2>
+        <h2 v-if="productAvailability" style="color: green">AVAILABLE</h2>
+        <h2 v-else style="color: red">UNAVAILABLE</h2>
+        <img width="200px" v-bind:src="productImage"></h2>
+        <h2>Description: <br><small v-html="productDesc"></small></h2>
+        <button v-bind:disabled="!productAvailability" v-on:click="logSale()">COMPRAR</button>
+        <br>
+        <br>
+        <button v-on:click="productPrice = 1200">Restore price</button>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: "#intro",
+            data: {
+                productName: "Computador Titan W599",
+                productDesc: "Processador i7<br>Disco SSD 256GB <br> Monitor Samsung 21’",
+                productImage: "https://www.titancomputers.com/v/vspfiles/photos/W599-Octane-2.jpg?v-cache=1540465720",
+                productPrice: 1200,
+                productAvailability: true
+            },
+            methods: {
+                logSale () {
+                    console.table({
+                        product: this.productName,
+                        price: this.productPrice
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
