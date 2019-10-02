@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VUEJS-EX03</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="intro">
+        <h2>Peso: {{weight}} kgs</h2>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: "#intro",
+            data: {
+                weight: 46
+            },
+            created: function () {
+                console.log("created");
+            },
+            mounted: function () {
+                console.log("mounted");
+            },
+            updated: function () {
+                console.log("updated");
+            },
+            destroyed: function () {
+                console.log("destroyed");
+            }
+        })
+    </script>
+</body>
+
+</html>
