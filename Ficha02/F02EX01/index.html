@@ -16,27 +16,27 @@
         <span>{{ number }}</span>
         <button @click="incrementNum">+</button>
         <button :disabled="number === 0" @click="decrementNum(number)">-</button>
-        <h2 v-if="!isNumValid">INVALID NUMBER</h2>
+        <!-- <h2 v-if="!isNumValid">INVALID NUMBER</h2> -->
     </div>
 
     <script>
         const vm = new Vue({
             el: "#root",
             data: {
-                number: undefined,
-                isNumValid: true
+                number: 0,
+                // isNumValid: true
             },
             methods: {
                 incrementNum: function () {
                     this.number += 1;
-                    this.isNumValid = true;
-                    localStorage.setItem("F02EX01-NUM", this.number);
+                    // this.isNumValid = true;
+                    // localStorage.setItem("F02EX01-NUM", this.number);
                 },
                 decrementNum: function (number) {
 
                     if (number) {
                         this.number -= 1;
-                        localStorage.setItem("F02EX01-NUM", this.number);
+                        // localStorage.setItem("F02EX01-NUM", this.number);
                     }
 
 
@@ -46,20 +46,23 @@
                     //     this.number = 0;
                     //     this.isNumValid = false;
                     // }
+                },
+                saveLocally: function () {
+                    localStorage.setItem("F02EX01-NUM", this.number);
                 }
             },
             created: function () {
                 console.log("The Vue instance was created");
-            },
-            beforeMount: function () {
+
                 const stored = Number(localStorage.getItem("F02EX01-NUM"));
 
                 if (stored) {
                     this.number = stored;
                 } else {
-                    this.number = 0;
                     localStorage.setItem("F02EX01-NUM", 0);
                 }
+
+                window.addEventListener("unload", this.saveLocally);
             },
             mounted: function () {
                 console.log("The Vue instance was mounted on the DOM");
