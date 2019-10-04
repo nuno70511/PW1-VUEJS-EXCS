@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>F03EX01</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>First name: {{ person.firstName }}</h2>
+        <h2>Last name: {{ person.lastName }}</h2>
+        <h2>Age: {{ person.age }}</h2>
+        <!-- <h2>{{ dataPerson() }}</h2>
+        <h2>{{ dataPerson() }}</h2>
+        <h2>{{ dataPersonComputed }}</h2>
+        <h2>{{ dataPersonComputed }}</h2> -->
+        <h2>Balance: {{ balanceComputed }}</h2>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                person: { firstName: "Rui", lastName: "Silva", age: 23 },
+                oldAge: 23,
+                balance: 4432
+            },
+            methods: {
+                dataPerson: function () {
+                    console.log(`METHOD--> NOME: ${this.person.firstName} e IDADE: ${this.person.age}`);
+                }
+            },
+            computed: {
+                dataPersonComputed: function () {
+                    console.log(`COMPUTED--> NOME: ${this.person.firstName} e IDADE: ${this.person.age}`);
+                },
+                fullNameComputed: function () {
+                    return `${this.person.firstName} ${this.person.lastName}`;
+                },
+                balanceComputed: function () {
+                    return `${Math.floor(this.balance / 100)},${this.balance % 100} €`;
+                }
+            },
+            watch: {
+                "person.age": function () {
+                    console.log(`Idade alterada de ${this.oldAge} para ${this.person.age}!`);
+                }
+            },
+            created: function () {
+                console.log("EVENTO: CRIAÇÃO");
+            },
+            mounted: function () {
+                console.log("EVENTO: MONTAGEM");
+            },
+            beforeUpdate: function () {
+                this.oldAge = this.person.age;
+            },
+            updated: function () {
+                console.log("EVENTO: ATUALIZAÇÃO");
+            }
+        })
+    </script>
+</body>
+
+</html>
