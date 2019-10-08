@@ -19,7 +19,7 @@
         <h2>{{ dataPerson() }}</h2>
         <h2>{{ dataPersonComputed }}</h2>
         <h2>{{ dataPersonComputed }}</h2> -->
-        <h2>Balance: {{ balanceComputed }}</h2>
+        <h2>Balance: {{ balance | formatBalance("€") }}</h2>
     </div>
 
     <script>
@@ -40,9 +40,11 @@
                 },
                 fullNameComputed: function () {
                     return `${this.person.firstName} ${this.person.lastName}`;
-                },
-                balanceComputed: function () {
-                    return `${Math.floor(this.balance / 100)},${this.balance % 100} €`;
+                }
+            },
+            filters: {
+                formatBalance(amount, symbol) {
+                    return `${(amount/100).toFixed(2)} ${symbol}`;
                 }
             },
             watch: {
