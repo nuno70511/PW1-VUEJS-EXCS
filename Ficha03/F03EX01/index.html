@@ -27,7 +27,6 @@
             el: "#root",
             data: {
                 person: { firstName: "Rui", lastName: "Silva", age: 23 },
-                oldAge: 23,
                 balance: 4432
             },
             methods: {
@@ -47,8 +46,8 @@
                 }
             },
             watch: {
-                "person.age": function () {
-                    console.log(`Idade alterada de ${this.oldAge} para ${this.person.age}!`);
+                "person.age": function (newAge, prevAge) {
+                    console.log(`Idade alterada de ${prevAge} para ${newAge}!`);
                 }
             },
             created: function () {
@@ -56,9 +55,6 @@
             },
             mounted: function () {
                 console.log("EVENTO: MONTAGEM");
-            },
-            beforeUpdate: function () {
-                this.oldAge = this.person.age;
             },
             updated: function () {
                 console.log("EVENTO: ATUALIZAÇÃO");
