@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>F04EX03</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="intro">
+        <!-- <ul>
+            <li v-for="team in teams">Name: {{ team.name }} AND year: {{ team.year }}</li>
+        </ul> -->
+
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>NAME</th>
+                    <th>YEAR</th>
+                    <th>LOCATION</th>
+                </tr>
+            </thead>
+            <tbody v-if="!selectedLocation">
+                <tr v-for="(team, index) in teams">
+                    <td>{{ index + 1 }}</td>
+                    <td>{{ team.name }}</td>
+                    <td>{{ team.year }}</td>
+                    <td>{{ team.location }}</td>
+                </tr>
+            </tbody>
+            <tbody v-else>
+                <tr v-for="(team, index) in teamLocation(selectedLocation)">
+                    <td>{{ index + 1 }}</td>
+                    <td>{{ team.name }}</td>
+                    <td>{{ team.year }}</td>
+                    <td>{{ team.location }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button @click="addTeam('braga', 1923, 'braga')">ADD BRAGA</button>
+
+        <button v-if="!selectedLocation" @click="selectedLocation = 'lisboa'">SHOW LISBON TEAMS</button>
+        <button v-else @click="selectedLocation = null">SHOW ALL TEAMS</button>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: "#intro",
+            data: {
+                teams: [
+                    { name: "benfica", year: 1910, location: 'lisboa' },
+                    { name: "porto", year: 1912, location: 'porto' },
+                    { name: "sporting", year: 1914, location: 'lisboa' }
+                ],
+                selectedLocation: null
+            },
+            methods: {
+                addTeam(teamName, foundationYear, location) {
+                    for (team of this.teams) {
+                        if (team.name === teamName) {
+                            alert("Team already exists!");
+                            return;
+                        }
+                    }
+
+                    this.teams.push( { name: teamName, year: foundationYear, location: location } );
+                },
+                teamLocation(location) {
+                    return this.teams.filter(team => {
+                        return team.location === location;
+                    })
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
