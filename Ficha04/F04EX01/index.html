@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>F04EX01</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="intro">
+        <h2 :style="styles">{{ isTextVisible ? msg : null }}</h2>
+        <button @click="styles.push({color: 'red'})">RED</button>
+        <button @click="styles.push({fontSize: '30pt'})">BIG</button>
+        <button @click="styles.push({backgroundColor: 'yellow'})">YELLOW</button>
+        <button @click="toggleText()">SHOW/HIDE</button>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: "#intro",
+            data: {
+                msg: "A ESMAD é uma escola do IPP",
+                styles: [],
+                isTextVisible: true
+            },
+            methods: {
+                toggleText() {
+                    this.isTextVisible = !this.isTextVisible;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
