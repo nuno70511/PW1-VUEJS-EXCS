@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>F04EX02</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="intro">
+        <h2>{{ schools.length }} Escolas do IPP</h2>
+        <ul v-if="schools.length">
+            <li v-for="school in schools">{{ school }}</li>
+        </ul>
+        <span v-else>SEM ESCOLAS</span>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: "#intro",
+            data: {
+                schools: ["ESMAD", "ISEP", "ESE", "ISCAP", "ESTG", "ESS", "ESHT"]
+            },
+            methods: {
+                addSchool(schoolName) {
+                    this.schools.push(schoolName);
+                },
+                schoolStartsWith(letter) {
+                    return this.schools.filter(school => {
+                        return school.startsWith(letter);
+                    })
+                }
+            }
+        });
+    </script>
+</body>
+</html>
