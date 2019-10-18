@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>F05EX01</title>
+</head>
+
+<body>
+    <div id="intro">
+        <button @click="showMsg">MOSTRAR MSG</button>
+        <button @click="showMessage(msg, $event)">MOSTRAR MENSAGEM</button>
+
+        <div @click="showMessage">
+            <button @click="showMsg">CLICA-ME</button>
+        </div>
+
+        <div @click="showMessage">
+            <button @click.stop="showMsg">CLICA-ME</button>
+        </div>
+
+        <div @click="showMessage">
+            <button @click.once="showMsg">CLICA-ME</button>
+        </div>
+
+        <div @click="showMessage">
+            <button @click @keyup.tab="showMsg">CLICA-ME</button>
+        </div>
+    </div>
+
+    <script src="./js/vue.js"></script>
+    <script src="./js/vue-instance.js"></script>
+</body>
+
+</html>
