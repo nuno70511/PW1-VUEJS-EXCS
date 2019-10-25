@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>aula-25102019</title>
+</head>
+<body>
+    <div id="app">
+        <form @submit.prevent="showMsg">
+            <label for="text-name">Nome: </label>
+            <input type="text" id="text-name" required v-model.lazy="name">
+
+            <br><br>
+
+            <label for="num-age">Idade: </label>
+            <input type="number" id="num-age" min="16" v-model.number="age">
+
+            <br><br>
+
+            <label for="check-gender-f">Feminino </label>
+            <input type="radio" id="check-gender-f" name="check-gender" value="f" checked v-model="gender">
+
+            <br>
+
+            <label for="check-gender-m">Masculino </label>
+            <input type="radio" id="check-gender-m" name="check-gender" value="m" v-model="gender">
+
+            <br><br>
+
+            <label>Licenciatura: </label>
+            <select v-model="course">
+                <option value="">Sem licenciatura</option>
+                <option value="inf">Informática</option>
+                <option value="data">Dados</option>
+                <option value="web">Web</option>
+            </select>
+
+            <br><br>
+
+            <span>Linguagens:</span>
+
+            <br>
+
+            <input type="checkbox" id="check-lang-c" name="check-lang" value="c" v-model="languages">
+            <label for="check-lang-c">C</label>
+            <input type="checkbox" id="check-lang-java" name="check-lang" value="java" v-model="languages">
+            <label for="check-lang-java">Java</label>
+            <input type="checkbox" id="check-lang-py" name="check-lang" value="py" v-model="languages">
+            <label for="check-lang-py">Python</label>
+            <input type="checkbox" id="check-lang-csharp" name="check-lang" value="csharp" v-model="languages">
+            <label for="check-lang-csharp">C#</label>
+            <input type="checkbox" id="check-lang-js" name="check-lang" value="js" v-model="languages">
+            <label for="check-lang-js">Javascript</label>
+            <input type="checkbox" id="check-lang-kotlin" name="check-lang" value="kotlin" v-model="languages">
+            <label for="check-lang-kotlin">Kotlin</label>
+
+            <br><br>
+
+            <label for="motivation">Motivação:</label><br>
+            <textarea id="motivation" v-model="motivation"></textarea>
+
+            <br><br>
+
+            <button type="submit" value="submit">Submeter</button>
+        </form>
+
+        <dialog></dialog>
+    </div>
+
+    <script src="/Ficha05/F05EX01/js/vue.js"></script>
+    <script src="./js/vue-instance.js"></script>
+</body>
+</html>
