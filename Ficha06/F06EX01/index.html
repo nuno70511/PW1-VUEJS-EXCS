@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>F06EX01</title>
+
+    <style>
+        table {
+            background-color: gold;
+        }
+
+        td {
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <table v-if="tasks.length">
+            <tr>
+                <th>#</th>
+                <th>Tarefa</th>
+                <th>Finalidade</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr v-for="(task, i) in filterTasks">
+                <td>{{ i + 1 }}</td>
+                <td>{{ task.desc }}</td>
+                <td>{{ (task.taskEnd === "p") ? "Pessoal" : "Trabalho"}}</td>
+                <td><input type="checkbox" v-model="task.isCompleted"></td>
+                <td :style="deleteStyles" @click="deleteTask(i)">&times;</td>
+            </tr>
+        </table>
+        <br>
+        <form @submit.prevent="addTask()">
+
+            <label for="text-task">Nova tarefa:</label>
+            <input id="text-task" type="text" v-model.lazy="newTask" required>
+
+            <input id="radio-end-p" type="radio" value="p" v-model="taskEnd">
+            <label for="radio-end-p">Pessoal</label>
+
+            <input id="radio-end-w" type="radio" value="w" v-model="taskEnd">
+            <label for="radio-end-w">Trabalho</label>
+
+            <button type="submit">Adicionar Tarefa</button>
+        </form>
+        
+        <label for="select-end"></label>
+        <select id="select-end" v-model="taskView">
+            <option value="">Todas</option>
+            <option value="p">Pessoais</option>
+            <option value="w">Trabalho</option>
+        </select>
+    </div>
+
+    <script src="../../Ficha05/F05EX01/js/vue.js"></script>
+    <script src="./js/vue-instance.js"></script>
+</body>
+
+</html>
