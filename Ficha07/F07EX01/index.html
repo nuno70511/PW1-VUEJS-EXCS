@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MyTravels</title>
+
+    <style>
+        table {
+            font-family: "Trebuchet MS";
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table td,
+        table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table tr:hover {
+            background-color: #ddd;
+        }
+
+        table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #66ccff;
+            color: white;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>País &#9660</th>
+                    <th>Continente</th>
+                    <th>Principais Cidades Visitadas</th>
+                    <th>Descrição</th>
+                    <th>Data de partida &#9660</th>
+                    <th>Data de chegada</th>
+                    <th>Tipo</th>
+                    <th>Foto</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(travel, index) in filteredTravels">
+                    <td>{{ travel.country }}</td>
+                    <td>{{ toLocalContinentName(travel.continent) }}</td>
+                    <td>
+                        <ul v-for="city in travel.mainVisitedCities">
+                            <li>{{ city }}</li>
+                        </ul>
+                    </td>
+                    <td>{{ travel.desc }}</td>
+                    <td>{{ travel.departureDate }}</td>
+                    <td>{{ travel.arrivalDate }}</td>
+                    <td>{{ travel.type }}</td>
+                    <td><img :src="travel.photo" height="100px"></td>
+                    <td :style="stylesBtnDelete" @click="deleteTravel(index)">&times;</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br>
+
+        <label for="sel-continent">Continente: </label>
+        <select id="sel-continent" v-model="selectedContinent">
+            <option value="">Seleciona um continente</option>
+            <option value="europe">Europa</option>
+            <option value="africa">Africa</option>
+            <option value="north-america">América do Norte</option>
+            <option value="south-america">América do Sul</option>
+            <option value="asia">Asia</option>
+            <option value="oceania">Oceania</option>
+            <option value="antarctica">Antártida</option>
+        </select>
+
+        <label for="date-departure">Data de partida: </label>
+        <input id="date-departure" type="date" v-model="selectedDeparture">
+
+        <label for="date-arrival">Data de chegada: </label>
+        <input id="date-arrival" type="date" v-model="selectedArrival">
+
+        <label for="sel-type">Tipo de viagem: </label>
+        <select id="sel-type" v-model="selectedType">
+            <option value="">Seleciona um tipo de viagem</option>
+            <option value="vacation">Férias</option>
+            <option value="business">Negócios</option>
+        </select>
+
+        <br><br>
+
+        <h4>Agendar nova viagem: </h4>
+        <form @submit.prevent="scheduleTravel">
+
+            <label for="form-country">País: </label>
+            <input id="form-country" type="text" required v-model="formCountry">
+
+            <br>
+
+            <label for="form-continent">Continente: </label>
+            <select id="form-continent" v-model="formContinent">
+                <option value="">Seleciona um continente</option>
+                <option value="europe">Europa</option>
+                <option value="africa">Africa</option>
+                <option value="north-america">América do Norte</option>
+                <option value="south-america">América do Sul</option>
+                <option value="asia">Asia</option>
+                <option value="oceania">Oceania</option>
+                <option value="antarctica">Antártida</option>
+            </select>
+
+            <br>
+
+            <label for="form-mainVisitedCities">Adicionar principais cidades visitadas: </label>
+            <input id="form-mainVisitedCities" type="text" required v-model="formCity" @keydown.enter.prevent="addMainVisitedCity">
+            <ul v-for="(city, index) in formMainVisitedCities">
+                <li>{{ city }} <span :style=stylesBtnDelete @click="removeMainVisitedCity(index)">&times;</span></li>
+            </ul>
+
+            <br>
+
+            <label for="form-desc">Descrição: </label> <br>
+            <textarea id="form-desc" cols="30" rows="10" v-model="formDesc"></textarea>
+
+            <br>
+
+            <label for="form-departure">Data de partida: </label>
+            <input id="form-departure" type="date" v-model="formDeparture">
+
+            <br>
+
+            <label for="form-arrival">Data de chegada: </label>
+            <input id="form-arrival" type="date" v-model="formArrival">
+
+            <br>
+
+            <label for="form-type">Tipo de viagem: </label>
+            <select id="form-type" v-model="formType">
+                <option value="vacation">Férias</option>
+                <option value="business">Negócios</option>
+            </select>
+
+            <br>
+
+            <label for="form-photo">Fotografia: </label>
+            <input id="form-photo" type="text" v-model="formPhoto">
+
+            <br>
+
+            <button @submit>AGENDAR</button>
+        </form>
+
+    </div>
+
+    <script src="../../Ficha05/F05EX01/js/vue.js"></script>
+    <script src="./js/vue-instance.js"></script>
+</body>
+
+</html>
