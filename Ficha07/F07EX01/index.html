@@ -48,11 +48,11 @@
         <table>
             <thead>
                 <tr>
-                    <th>País &#9660</th>
+                    <th><button :style="stylesBtnHeader" @click="sortCountries()">País</button></th>
                     <th>Continente</th>
                     <th>Principais Cidades Visitadas</th>
                     <th>Descrição</th>
-                    <th>Data de partida &#9660</th>
+                    <th><button :style="stylesBtnHeader" @click="sortDepartures()">Data de partida</button></th>
                     <th>Data de chegada</th>
                     <th>Tipo</th>
                     <th>Foto</th>
@@ -71,7 +71,7 @@
                     <td>{{ travel.desc }}</td>
                     <td>{{ travel.departureDate }}</td>
                     <td>{{ travel.arrivalDate }}</td>
-                    <td>{{ travel.type }}</td>
+                    <td>{{ toLocalTypeName(travel.type) }}</td>
                     <td><img :src="travel.photo" height="100px"></td>
                     <td :style="stylesBtnDelete" @click="deleteTravel(index)">&times;</td>
                 </tr>
@@ -111,7 +111,7 @@
         <form @submit.prevent="scheduleTravel">
 
             <label for="form-country">País: </label>
-            <input id="form-country" type="text" required v-model="formCountry">
+            <input id="form-country" type="text" required v-model.lazy="formCountry">
 
             <br>
 
@@ -129,8 +129,8 @@
 
             <br>
 
-            <label for="form-mainVisitedCities">Adicionar principais cidades visitadas: </label>
-            <input id="form-mainVisitedCities" type="text" required v-model="formCity" @keydown.enter.prevent="addMainVisitedCity">
+            <label for="form-mainVisitedCities">Adicionar principais cidades visitadas <small>(ENTER para confirmar)</small>: </label>
+            <input id="form-mainVisitedCities" type="text" v-model="formCity" @keydown.enter.prevent="addMainVisitedCity">
             <ul v-for="(city, index) in formMainVisitedCities">
                 <li>{{ city }} <span :style=stylesBtnDelete @click="removeMainVisitedCity(index)">&times;</span></li>
             </ul>
@@ -138,7 +138,7 @@
             <br>
 
             <label for="form-desc">Descrição: </label> <br>
-            <textarea id="form-desc" cols="30" rows="10" v-model="formDesc"></textarea>
+            <textarea id="form-desc" cols="30" rows="10" v-model.lazy="formDesc"></textarea>
 
             <br>
 
@@ -161,11 +161,11 @@
             <br>
 
             <label for="form-photo">Fotografia: </label>
-            <input id="form-photo" type="text" v-model="formPhoto">
+            <input id="form-photo" type="text" v-model.lazy="formPhoto">
 
             <br>
 
-            <button @submit>AGENDAR</button>
+            <button type="submit">AGENDAR</button>
         </form>
 
     </div>

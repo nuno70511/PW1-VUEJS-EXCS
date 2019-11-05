@@ -29,8 +29,21 @@ const vm = new Vue({
         selectedDeparture: "",
         selectedArrival: "",
         selectedType: "vacation",
+        areCountriesDescending: true,
+        areDeparturesDescending: true,
         stylesBtnDelete: {
             color: "red",
+            cursor: "pointer"
+        },
+        stylesBtnHeader: {
+            fontFamily: "Trebuchet MS",
+            fontSize: "105%",
+            paddingTop: "12px",
+            paddingBottom: "12px",
+            textAlign: "left",
+            backgroundColor: "transparent",
+            color: "white",
+            border: "none",
             cursor: "pointer"
         }
     },
@@ -55,6 +68,16 @@ const vm = new Vue({
                     return "";
             }
         },
+        toLocalTypeName(type) {
+            switch (type) {
+                case "vacation":
+                    return "Férias";
+                case "business":
+                    return "Negócios";
+                default:
+                    return "";
+            }
+        },
         scheduleTravel() {
             this.travels.push({
                 country: this.formCountry,
@@ -66,6 +89,15 @@ const vm = new Vue({
                 type: this.formType,
                 photo: this.formPhoto
             });
+
+            this.formCountry = "";
+            this.formContinent = "";
+            this.formMainVisitedCities = [];
+            this.formDesc = "";
+            this.formDeparture = "";
+            this.formArrival = "";
+            this.formType = "vacation";
+            this.formPhoto = "";
         },
         deleteTravel(index) {
             if (confirm("Tem a certeza de que pretende remover a viagem?")) {
@@ -73,14 +105,34 @@ const vm = new Vue({
             }
         },
         addMainVisitedCity() {
+            if (this.formCity === "") {
+                return;
+            }
+
             if (!this.formMainVisitedCities.some(city => city === this.formCity)) {
                 this.formMainVisitedCities.push(this.formCity);
+                this.formCity = "";
             } else {
                 alert("Cidade já adicionada!");
             }
         },
         removeMainVisitedCity(index) {
             this.formMainVisitedCities.splice(index, 1);
+        },
+        sortCountries() {
+            this.areCountriesDescending ? this.travels.sort((a, b) => (a.country > b.country) ? 1 : -1) :
+                                          this.travels.sort((a, b) => (a.country < b.country) ? 1 : -1)
+
+            this.areCountriesDescending = !this.areCountriesDescending;
+        },
+        sortDepartures() {
+            this.areDeparturesDescending ? this.travels.sort((a, b) => (a.departuredDate > b.departuredDate) ? 1 : -1) :
+                                           this.travels.sort((a, b) => (a.departuredDate < b.departuredDate) ? 1 : -1)
+
+            this.areDeparturesDescending = !this.areDeparturesDescending;
+        },
+        saveLocally() {
+            localStorage.setItem("travels", JSON.stringify(this.travels));
         }
     },
     computed: {
@@ -92,5 +144,13 @@ const vm = new Vue({
                 travel.type === this.selectedType
             );
         }
+    },
+    created() {
+        const stored = JSON.parse(localStorage.getItem("travels"));
+
+        if (stored)
+            this.travels = stored;
+
+        window.addEventListener("unload", this.saveLocally);
     }
 });
