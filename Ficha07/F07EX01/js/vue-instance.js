@@ -138,10 +138,10 @@ const vm = new Vue({
     computed: {
         filteredTravels() {
             return this.travels.filter(travel =>
-                this.selectedContinent === "" || travel.continent === this.selectedContinent &&
-                this.selectedDeparture === "" || travel.departureDate === this.selectedDeparture &&
-                this.selectedArrival === "" || travel.arrivalDate === this.selectedArrival &&
-                travel.type === this.selectedType
+                (this.selectedContinent === "" || travel.continent === this.selectedContinent) &&
+                (this.selectedDeparture === "" || travel.departureDate === this.selectedDeparture) &&
+                (this.selectedArrival === "" || travel.arrivalDate === this.selectedArrival) &&
+                (this.selectedType === "" || travel.type === this.selectedType)
             );
         }
     },
