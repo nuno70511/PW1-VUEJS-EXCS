@@ -44,8 +44,8 @@
 
 <body>
     <div id="app">
-
-        <table>
+        <span v-if="!this.travels.length">SEM VIAGENS</span>
+        <table v-else>
             <thead>
                 <tr>
                     <th><button :style="stylesBtnHeader" @click="sortCountries()">País</button></th>
@@ -161,7 +161,7 @@
             <br>
 
             <label for="form-photo">Fotografia: </label>
-            <input id="form-photo" type="text" v-model.lazy="formPhoto">
+            <input id="form-photo" type="url" v-model.lazy="formPhoto">
 
             <br>
 
