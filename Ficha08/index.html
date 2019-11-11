@@ -1,14 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>PortugalCastles</title>
+
+    <style>
+        table {
+            margin: 100px auto 0
+        }
+
+        th:first-child {
+            width: 300px;
+        }
+
+        th:nth-child(2) {
+            width: 100px;
+        }
+
+        dialog {
+            width: 500px;
+            height: 500px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        dialog>img {
+            width: inherit;
+        }
+
+        dialog>button {
+            display: block;
+            margin-left: auto;
+            margin-bottom: 10px;
+        }
+
+        #search-container {
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        td>button {
+            color: red;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
+
 <body>
     <div id="app">
 
+        <table>
+            <tr>
+                <th><a href="#" @click="sortCastles">Nome</a></th>
+                <th>Foto</th>
+                <th></th>
+            </tr>
+            <tr v-for="(castle, i) in filteredCastles">
+                <td>{{ castle.name }}</td>
+                <td style="text-align: center"><a href="#" @click="viewCastle(i)">Ver foto</a></td>
+                <td><button @click="removeCastle(i)">&times;</button></td>
+            </tr>
+        </table>
+
+        <div id="search-container">
+            <label for="txt-castle">Procurar: </label>
+            <input id="txt-castle" type="text" v-model="searchedCastle">
+        </div>
+
+        <br>
+
+        <h3>Adicionar castelo</h3>
+
+        <form @submit.prevent="addCastle">
+            <label for="formCastle">Nome: </label>
+            <input type="text" required v-model.lazy="formCastle">
+
+            <br><br>
+
+            <label for="formPhoto">Photo: </label>
+            <input type="url" required v-model.lazy="formPhoto">
+
+            <br><br>
+
+            <button type="submit">ADICIONAR</button>
+        </form>
+
+        <dialog :open="isDialogOpen">
+            <button @click="isDialogOpen = false">&times;</button>
+            <img :src="selectedCastle.photo">
+        </dialog>
+
+        <br>
+        <hr>
+        <br>
+
+        <button @click="arrMap">RETIRAR "CASTELO"</button><br><br>
+
+        <button @click="arrReduce">MÉDIA ANOS CRIAÇÃO</button>
+        <input disabled size="2" style="margin-left: 20px" v-model="castlesMean"><br><br>
+
+        <button @click="arrSome('Marvão')">PROCURAR "MARVÃO"</button>
+        <input disabled size="2" style="margin-left: 20px" v-model="doesCastleExist"><br><br>
+
+        <button @click="arrFilter('A')">COMEÇAR COM "A"</button>
+        <span v-for="castle in myCastles">
+            <span>{{ castle.name }}; </span>
+        </span>
+
+        
     </div>
+
+    <script src="../../Ficha05/F05EX01/js/vue.js"></script>
+    <script src="./js/vue-instance.js"></script>
 </body>
+
 </html>
